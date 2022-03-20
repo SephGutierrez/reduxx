@@ -1,5 +1,5 @@
 
-const RotateReducer = (state, action) => {
+const rotateReducer = (state = {rotating: true}, action) => {
     switch (action.type) {
         case "rotate":
             return {
@@ -10,4 +10,4 @@ const RotateReducer = (state, action) => {
         }
 };
 
-export default RotateReducer;
+export default rotateReducer;
