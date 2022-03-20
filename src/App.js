@@ -1,25 +1,36 @@
 import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux';
+import {startAction} from './actions/startAction';
+import {stopAction} from './actions/stopAction';
 
-function App() {
+
+
+const mapStateToProps =  state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => ({
+  startAction: () => dispatch(startAction),
+  stopAction: () => dispatch(stopAction)
+
+});
+
+
+function App(props) {
+      
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+
+        <img src={logo} className={"App-logo" + (props.rotating ? '' : 'logo-paused')} alt="logo"
+        onClick={props.rotating ? props.stopAction: props.startAction} />
+
+        <p>Prop state {props.rotating ? "rotating" : "paused"}</p>
+
       </header>
     </div>
   );
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps) (App);
